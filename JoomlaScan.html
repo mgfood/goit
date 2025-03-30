@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подробное руководство по JoomlaScan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="JoomlaScan.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container">
+        <h1 class="section-title">Подробное руководство по JoomlaScan</h1>
+
+        <section class="section-content">
+            <p>
+                JoomlaScan - это специализированный сканер безопасности, предназначенный для обнаружения уязвимостей в веб-сайтах, работающих на системе управления контентом (CMS) Joomla.
+            </p>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Что такое JoomlaScan?</h2>
+            <p>
+                JoomlaScan - это инструмент командной строки, который автоматизирует процесс сканирования веб-сайтов Joomla на наличие различных типов уязвимостей. Он помогает выявить потенциальные проблемы безопасности, которые могут быть использованы злоумышленниками.
+            </p>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Как работает JoomlaScan?</h2>
+            <p>
+                JoomlaScan работает, выполняя серию проверок на целевом веб-сайте Joomla, включая:
+            </p>
+            <ul>
+                <li>Обнаружение версии Joomla.</li>
+                <li>Проверку наличия известных уязвимостей в ядре Joomla.</li>
+                <li>Обнаружение установленных компонентов, модулей и плагинов.</li>
+                <li>Проверку наличия известных уязвимостей в компонентах, модулях и плагинах.</li>
+                <li>Сканирование на наличие уязвимостей конфигурации.</li>
+            </ul>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Основные возможности JoomlaScan</h2>
+            <p>
+                JoomlaScan обладает рядом полезных функций, в том числе:
+            </p>
+            <ul>
+                <li>Обширная база данных уязвимостей: JoomlaScan поддерживает большую базу данных известных уязвимостей Joomla, которая регулярно обновляется.</li>
+                <li>Обнаружение версий: Инструмент может автоматически определять версию Joomla, используемую на целевом веб-сайте.</li>
+                <li>Сканирование расширений: JoomlaScan может перечислять установленные компоненты, модули и плагины и проверять их на наличие известных уязвимостей.</li>
+                <li>Сканирование конфигурации: Инструмент проверяет наличие распространенных ошибок конфигурации, которые могут привести к уязвимостям.</li>
+                <li>Поддержка различных форматов вывода: Результаты сканирования можно выводить в различных форматах, таких как текстовый и JSON.</li>
+                <li>Автоматическое обновление: JoomlaScan может автоматически обновлять свою базу данных уязвимостей.</li>
+            </ul>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Примеры использования JoomlaScan</h2>
+
+            <h3 class="example-title">Базовое сканирование</h3>
+            <p>
+                В этом примере показано, как выполнить базовое сканирование веб-сайта Joomla.
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Выполнение базового сканирования:
+joomlascan --url http://example.com
+
+# Что вы увидите в терминале:
+# JoomlaScan начнет сканирование http://example.com и отобразит результаты в режиме реального времени.
+# Пример вывода:
+# ...
+# [+] URL: http://example.com/
+# [+] Started: 2024-07-24 12:00:00
+#
+# [+] Обнаружена версия Joomla: 3.9.28
+#  | найдена: /administrator/manifests/files/joomla.xml
+#  | уверенность: 100%
+#
+# [+] Обнаружены компоненты:
+#  | Название: com_content
+#  | Путь: /components/com_content/
+#  | Версия: 3.9.28
+#  |
+#  | Название: com_users
+#  | Путь: /components/com_users/
+#  | Версия: 3.9.28
+#  |
+#  | Название: com_media
+#  | Путь: /components/com_media/
+#  | Версия: 3.9.28
+#  |
+#  | [!] 3 уязвимости найдено
+#  |
+#  | * Title: Joomla 3.7.0 - Core - информация о раскрытии сеанса
+#  |     Ссылка: https://www.exploit-db.com/exploits/42071
+#  |     Идентификатор уязвимости: EDB-ID:42071
+#  |
+#  | * Title: Joomla 3.4.4 - Core - SQL Injection
+#  |     Ссылка: https://www.exploit-db.com/exploits/39212
+#  |     Идентификатор уязвимости: EDB-ID:39212
+#  |
+#  | * Title: Joomla 3.0.0 - 3.4.6 - Core - Remote Code Execution
+#  |     Ссылка: https://www.exploit-db.com/exploits/37225
+#  |     Идентификатор уязвимости: EDB-ID:37225
+# ...
+                </code></pre>
+            </div>
+
+            <h3 class="example-title">Обновление базы данных</h3>
+            <p>
+                В этом примере показано, как обновить базу данных уязвимостей JoomlaScan.
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Обновление базы данных:
+joomlascan --update
+
+# Что вы увидите в терминале:
+# JoomlaScan загрузит последние обновления уязвимостей.
+# Пример вывода:
+# [i] Обновление базы данных уязвимостей ...
+# [i] База данных уязвимостей успешно обновлена до 2024-07-24T12:00:00Z
+                </code></pre>
+            </div>
+
+            <h3 class="example-title">Вывод в формате JSON</h3>
+            <p>
+                В этом примере показано, как вывести результаты сканирования в формате JSON.
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Вывод в формате JSON:
+joomlascan --url http://example.com --output report.json --format json
+
+# Что вы увидите:
+# JoomlaScan выполнит сканирование и сохранит отчет в формате JSON в файл "report.json".
+# Файл будет содержать подробные результаты сканирования в формате JSON.
+                </code></pre>
+            </div>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Важные замечания</h2>
+            <ul class="list-disc list-inside">
+                <li><strong>Используйте JoomlaScan только на тех системах, которые вам разрешено тестировать.</strong> Несанкционированное использование JoomlaScan может привести к юридическим последствиям.</li>
+                <li><strong>Будьте осторожны при сканировании веб-серверов.</strong> Чрезмерное сканирование может привести к блокировке вашего IP-адреса или вызвать проблемы с производительностью сервера.</li>
+                <li><strong>Всегда анализируйте результаты сканирования вручную</strong>, чтобы избежать ложных срабатываний.</li>
+                <li><strong>Поддерживайте JoomlaScan в актуальном состоянии</strong>, чтобы иметь доступ к последним обновлениям уязвимостей.</li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>

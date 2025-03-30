@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подробное руководство по XSSer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="XSSer.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container">
+        <h1 class="section-title">Подробное руководство по XSSer</h1>
+
+        <section class="section-content">
+            <p>
+                XSSer - это автоматизированный инструмент для обнаружения и эксплуатации уязвимостей, связанных с межсайтовым скриптингом (XSS) на веб-сайтах.
+            </p>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Что такое XSSer?</h2>
+            <p>
+                XSSer - это инструмент командной строки, предназначенный для упрощения процесса тестирования на XSS.  Он работает, внедряя различные векторы атак XSS в параметры веб-приложения и анализируя ответы сервера для определения, является ли параметр уязвимым.
+            </p>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Как работает XSSer?</h2>
+            <p>
+                XSSer автоматизирует следующие шаги:
+            </p>
+            <ul>
+                <li><strong>Обнаружение:</strong> XSSer определяет параметры веб-приложения, которые могут быть уязвимы для XSS.</li>
+                <li><strong>Внедрение:</strong> Инструмент внедряет различные векторы атак XSS в эти параметры.</li>
+                <li><strong>Анализ:</strong> XSSer анализирует ответ сервера, чтобы определить, была ли атака успешной.</li>
+                <li><strong>Эксплуатация:</strong> В случае успеха XSSer может предоставить возможности для дальнейшей эксплуатации уязвимости.</li>
+            </ul>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Основные возможности XSSer</h2>
+            <p>
+                XSSer обладает рядом функций, предназначенных для облегчения тестирования на XSS:
+            </p>
+            <ul>
+                <li>Поддержка различных методов внедрения: GET, POST, Cookie.</li>
+                <li>Автоматическое обнаружение параметров.</li>
+                <li>Встроенные полезные нагрузки для различных контекстов (HTML, JavaScript).</li>
+                <li>Возможность обхода фильтров.</li>
+                <li>Интерактивный режим для ручной настройки атак.</li>
+                <li>Отчетность.</li>
+            </ul>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Примеры использования XSSer</h2>
+
+            <h3 class="example-title">Базовое сканирование</h3>
+            <p>
+                В этом примере показано, как выполнить базовое сканирование на XSS, используя URL.
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Базовое сканирование на XSS:
+xsser -u http://example.com/search.php?query=test
+
+# Что вы увидите в терминале:
+# XSSer начнет сканирование http://example.com/search.php на наличие уязвимостей XSS.
+# Он автоматически обнаружит параметр 'query' и внедрит различные полезные нагрузки.
+# Пример вывода:
+# ...
+# [INFO] обнаружено 1 уязвимое место
+# [INFO] Параметр: query
+# [INFO] Вектор: <script>alert(1)</script>
+# ...
+                </code></pre>
+            </div>
+
+            <h3 class="example-title">Сканирование с использованием POST-запроса</h3>
+            <p>
+                Этот пример демонстрирует сканирование на XSS с использованием POST-запроса с предоставленными данными.
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Сканирование POST-запроса:
+xsser -u http://example.com/login.php -d "username=test&password=password"
+
+# Что вы увидите в терминале:
+# XSSer отправит POST-запрос на http://example.com/login.php с данными "username=test&password=password".
+# Он проанализирует ответ на наличие отраженных XSS.
+                </code></pre>
+            </div>
+
+            <h3 class="example-title">Использование пользовательских полезных нагрузок</h3>
+            <p>
+                Этот пример показывает, как использовать пользовательский вектор атаки.
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Использование пользовательской полезной нагрузки:
+xsser -u http://example.com/index.php?param=test --payload="<svg/onload=alert(1)>"
+
+# Что вы увидите в терминале:
+# XSSer внедрит указанную SVG-полезную нагрузку для проверки на XSS.
+                </code></pre>
+            </div>
+
+            <h3 class="example-title">Обход фильтров</h3>
+            <p>
+                В этом примере показаны методы обхода простых фильтров.
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Обход фильтров:
+xsser -u http://example.com/filter.php?input=test --filter
+
+# Что вы увидите в терминале:
+# XSSer попытается обойти любые обнаруженные фильтры, используя различные методы кодирования и другие техники.
+                </code></pre>
+            </div>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Важные замечания</h2>
+            <ul class="list-disc list-inside">
+                <li><strong>Используйте XSSer только на тех системах, которые вам разрешено тестировать.</strong> Несанкционированное использование XSSer может привести к юридическим последствиям.</li>
+                <li><strong>Будьте осторожны при эксплуатации уязвимостей.</strong>  Некорректные действия могут привести к повреждению веб-сайта или другим нежелательным последствиям.</li>
+                <li><strong>Всегда сообщайте об обнаруженных уязвимостях ответственным лицам.</strong></li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>

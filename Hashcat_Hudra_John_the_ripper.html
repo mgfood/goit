@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практическое руководство по Hydra, Hashcat и John the Ripper</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="Hashcat_Hudra_John_the_ripper.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container">
+        <h1 class="section-title">Практическое руководство по Hydra, Hashcat и John the Ripper</h1>
+
+        <section class="section-content">
+            <p>
+                В этом руководстве представлены практические примеры использования трех популярных инструментов для тестирования безопасности: Hydra, Hashcat и John the Ripper.  Мы сосредоточимся на их использовании через терминал и приведем примеры вывода для каждой команды.
+            </p>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Hydra</h2>
+            <p>
+                Hydra - это инструмент для перебора (brute-force) учетных данных, поддерживающий множество протоколов.
+            </p>
+
+            <h3 class="example-title">Перебор SSH</h3>
+            <div class="example-code">
+                <pre><code>
+# Перебор SSH с использованием списка пользователей и паролей:
+hydra -L users.txt -P passwords.txt 192.168.1.10 ssh
+
+# Пример вывода:
+# [ATTEMPT][0000] 192.168.1.10:22 - user:admin  password:password
+# [ATTEMPT][0001] 192.168.1.10:22 - user:admin  password:12345
+# [22][ssh] host: 192.168.1.10   login: admin   password: password
+                </code></pre>
+            </div>
+
+            <h3 class="example-title">Перебор FTP</h3>
+            <div class="example-code">
+                <pre><code>
+# Перебор FTP с одним пользователем и списком паролей:
+hydra -l admin -P passwords.txt ftp://192.168.1.20
+
+# Пример вывода:
+# [ATTEMPT][0000] 192.168.1.20:21 - user:admin  password:password
+# [ATTEMPT][0001] 192.168.1.20:21 - user:admin  password:12345
+# [21][ftp] host: 192.168.1.20   login: admin   password: secret
+                </code></pre>
+            </div>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Hashcat</h2>
+            <p>
+                Hashcat - это мощный инструмент для восстановления паролей, использующий ресурсы GPU.
+            </p>
+
+            <h3 class="example-title">Взлом хешей MD5</h3>
+            <div class="example-code">
+                <pre><code>
+# Взлом хешей MD5 с использованием словаря:
+hashcat -m 0 hashes.txt wordlist.txt
+
+# Пример вывода:
+# hashes.txt:admin:$md5$salt$3ad80c9e0e4a510b49296845d7d52e6e
+# wordlist.txt: password
+#
+# Session..........: hashcat
+# Status...........: Cracked
+# Hash.Name........: MD5
+# Hash.Target......: admin:$md5$salt$3ad80c9e0e4a510b49296845d7d52e6e
+#
+# Cracked: 1/1 (100.00%)
+                </code></pre>
+            </div>
+
+            <h3 class="example-title">Взлом хешей SHA256 с использованием маски</h3>
+            <div class="example-code">
+                <pre><code>
+# Взлом хешей SHA256 с использованием маски:
+hashcat -m 1400 hashes.txt ?d?d?d?d?d?d
+
+# Пример вывода:
+# hashes.txt:user1:8c6976e5b5410415bde908bd4dee15b167a9c873fc4bb807b6871f0e4a1b88a
+# ?d?d?d?d?d?d: 123456
+#
+# Session..........: hashcat
+# Status...........: Cracked
+# Hash.Name........: SHA-256
+# Hash.Target......: user1:8c6976e5b5410415bde908bd4dee15b167a9c873fc4bb807b6871f0e4a1b88a
+#
+# Cracked: 1/1 (100.00%)
+                </code></pre>
+            </div>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">John the Ripper</h2>
+            <p>
+                John the Ripper - это универсальный инструмент для взлома паролей.
+            </p>
+
+            <h3 class="example-title">Взлом теневого файла Linux</h3>
+            <div class="example-code">
+                <pre><code>
+# Взлом теневого файла Linux:
+unshadow passwd shadow > unshadowed.txt
+john unshadowed.txt
+
+# Пример вывода:
+# Loaded 1 password hash (LM [DES 56/64 BS])
+# Press 'q' or Ctrl-C to quit, and see what has been found so far...
+# root             :password
+# 1 password hash cracked, 0 left
+                </code></pre>
+            </div>
+
+            <h3 class="example-title">Взлом хешей MD5 с использованием incremental mode</h3>
+            <div class="example-code">
+                <pre><code>
+# Взлом хешей MD5 с использованием incremental mode:
+john --incremental:digits hashes.txt
+
+# Пример вывода:
+# Loaded 1 password hash (Raw MD5 [128/128 SSE2 4x])
+# Press 'q' or Ctrl-C to quit, and see what has been found so far...
+# user1            :12345
+# 1 password hash cracked, 0 left
+                </code></pre>
+            </div>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Важные замечания</h2>
+            <ul class="list-disc list-inside">
+                <li><strong>Используйте эти инструменты только на тех системах, которые вам разрешено тестировать.</strong> Несанкционированное использование этих инструментов может привести к юридическим последствиям.</li>
+                <li><strong>Будьте осторожны при тестировании безопасности.</strong>  Некорректные действия могут привести к нежелательным последствиям.</li>
+                <li><strong>Всегда сообщайте об обнаруженных уязвимостях ответственным лицам.</strong></li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>

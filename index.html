@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструменты пентестинга</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container">
+        <h1 class="section-title">Инструменты пентестинга</h1>
+
+        <section class="section-content">
+            <p>
+                Пожалуйста, выберите инструмент для просмотра подробной информации.
+            </p>
+        </section>
+
+        <div class="grid-container">
+            <div class="card" onclick="window.location.href='burp_suite.html'">
+                <h2 class="card-title">Burp Suite</h2>
+                <p class="card-description">Burp Suite - это интегрированная платформа для тестирования безопасности веб-приложений.</p>
+                <p class="card-category">Категория: Прокси, Сканер уязвимостей</p>
+                <a href="burp_suite.html" class="card-link">Перейти</a>
+            </div>
+            <div class="card" onclick="window.location.href='CSRFtester.html'">
+                <h2 class="card-title">CSRFtester</h2>
+                <p class="card-description">CSRFtester - это инструмент для тестирования веб-приложений на уязвимость CSRF.</p>
+                <p class="card-category">Категория: Тестирование CSRF</p>
+                <a href="CSRFtester.html" class="card-link">Перейти</a>
+            </div>
+            <div class="card" onclick="window.location.href='Dirbuster_Gobuster.html'">
+                <h2 class="card-title">Dirbuster/Gobuster</h2>
+                <p class="card-description">Dirbuster и Gobuster - инструменты для обнаружения скрытых каталогов и файлов на веб-серверах.</p>
+                <p class="card-category">Категория: Обнаружение контента</p>
+                <a href="Dirbuster_Gobuster.html" class="card-link">Перейти</a>
+            </div>
+            <div class="card" onclick="window.location.href='Hashcat_Hydra_John_the_Ripper.html'">
+                <h2 class="card-title">Hashcat/Hydra/John the Ripper</h2>
+                <p class="card-description">Инструменты для взлома паролей и перебора учетных данных.</p>
+                <p class="card-category">Категория: Взлом паролей</p>
+                <a href="Hashcat_Hydra_John_the_Ripper.html" class="card-link">Перейти</a>
+            </div>
+            <div class="card" onclick="window.location.href='JoomlaScan.html'">
+                <h2 class="card-title">JoomlaScan</h2>
+                <p class="card-description">JoomlaScan - сканер безопасности, предназначенный для обнаружения уязвимостей в сайтах Joomla.</p>
+                <p class="card-category">Категория: Сканер CMS</p>
+                <a href="JoomlaScan.html" class="card-link">Перейти</a>
+            </div>
+            <div class="card" onclick="window.location.href='metasploit.html'">
+                <h2 class="card-title">Metasploit</h2>
+                <p class="card-description">Metasploit Framework - платформа для разработки и использования эксплойтов.</p>
+                <p class="card-category">Категория: Эксплойты</p>
+                <a href="metasploit.html" class="card-link">Перейти</a>
+            </div>
+            <div class="card" onclick="window.location.href='Nikto.html'">
+                <h2 class="card-title">Nikto</h2>
+                <p class="card-description">Nikto - сканер веб-серверов с открытым исходным кодом.</p>
+                <p class="card-category">Категория: Сканер веб-серверов</p>
+                <a href="Nikto.html" class="card-link">Перейти</a>
+            </div>
+            <div class="card" onclick="window.location.href='nmap.html'">
+                <h2 class="card-title">Nmap</h2>
+                <p class="card-description">Nmap - мощный сканер портов и инструмент для сетевого картирования.</p>
+                <p class="card-category">Категория: Сетевой сканер</p>
+                <a href="nmap.html" class="card-link">Перейти</a>
+            </div>
+             <div class="card" onclick="window.location.href='OWASP_ZAP.html'">
+                <h2 class="card-title">OWASP ZAP</h2>
+                <p class="card-description">OWASP ZAP - бесплатный прокси-сервер с открытым исходным кодом и сканер безопасности веб-приложений.</p>
+                <p class="card-category">Категория: Прокси, Сканер уязвимостей</p>
+                <a href="OWASP_ZAP.html" class="card-link">Перейти</a>
+            </div>
+            <div class="card" onclick="window.location.href='sqlmap.html'">
+                <h2 class="card-title">sqlmap</h2>
+                <p class="card-description">sqlmap - инструмент с открытым исходным кодом для автоматизации обнаружения и использования уязвимостей SQL-инъекций.</p>
+                <p class="card-category">Категория: SQL-инъекции</p>
+                <a href="sqlmap.html" class="card-link">Перейти</a>
+            </div>
+            <div class="card" onclick="window.location.href='WhatWeb.html'">
+                <h2 class="card-title">WhatWeb</h2>
+                <p class="card-description">WhatWeb - инструмент для идентификации веб-сайтов.</p>
+                <p class="card-category">Категория: Информационная разведка</p>
+                <a href="WhatWeb.html" class="card-link">Перейти</a>
+            </div>
+            <div class="card" onclick="window.location.href='WPScan.html'">
+                <h2 class="card-title">WPScan</h2>
+                <p class="card-description">WPScan - сканер безопасности WordPress.</p>
+                <p class="card-category">Категория: Сканер CMS</p>
+                <a href="WPScan.html" class="card-link">Перейти</a>
+            </div>
+            <div class="card" onclick="window.location.href='XSSer.html'">
+                <h2 class="card-title">XSSer</h2>
+                <p class="card-description">XSSer - автоматизированный инструмент для обнаружения и использования XSS-уязвимостей.</p>
+                <p class="card-category">Категория: XSS</p>
+                <a href="XSSer.html" class="card-link">Перейти</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

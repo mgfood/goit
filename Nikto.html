@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подробное руководство по Nikto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="Nikto.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container">
+        <h1 class="section-title">Подробное руководство по Nikto</h1>
+
+        <section class="section-content">
+            <p>
+                Nikto - это сканер веб-сервера с открытым исходным кодом, который сканирует целевой веб-сервер на наличие различных уязвимостей и проблем конфигурации.
+            </p>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Что такое Nikto?</h2>
+            <p>
+                Nikto - это инструмент командной строки, который выполняет всестороннее тестирование веб-сервера, включая:
+            </p>
+            <ul>
+                <li>Обнаружение небезопасных файлов и каталогов.</li>
+                <li>Выявление устаревшего программного обеспечения и известных уязвимостей.</li>
+                <li>Проверку параметров конфигурации сервера.</li>
+                <li>Идентификацию установленных приложений и их версий.</li>
+            </ul>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Как работает Nikto?</h2>
+            <p>
+                Nikto работает, отправляя серию запросов к целевому веб-серверу и анализируя ответы.  Он использует базу данных известных уязвимостей и шаблонов для выявления потенциальных проблем.
+            </p>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Основные возможности Nikto</h2>
+            <p>
+                Nikto предлагает широкий спектр возможностей, включая:
+            </p>
+            <ul>
+                <li>Поддержку протоколов HTTP и HTTPS.</li>
+                <li>Возможность сканирования нескольких портов на одном сервере.</li>
+                <li>Обнаружение различных типов уязвимостей, включая SQL-инъекции, XSS и другие.</li>
+                <li>Идентификацию устаревших серверов и программного обеспечения.</li>
+                <li>Настраиваемый вывод в различных форматах.</li>
+                <li>Обход систем обнаружения вторжений (IDS).</li>
+            </ul>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Примеры использования Nikto</h2>
+
+            <h3 class="example-title">Базовое сканирование</h3>
+            <p>
+                Этот пример демонстрирует базовое сканирование веб-сервера.
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Выполнение базового сканирования:
+nikto -h http://example.com
+
+# Что вы увидите в терминале:
+# Nikto начнет сканирование http://example.com и отобразит результаты в режиме реального времени.
+# Пример вывода:
+# + Target IP:          192.0.2.1
+# + Target Hostname:    example.com
+# + Target Port:        80
+# + Start Time:         2024-07-24 12:00:00
+# ...
+# + Server: Apache/2.4.29 (Ubuntu)
+# + The anti-clickjacking X-Frame-Options header is not present.
+# + The X-XSS-Protection header is not defined. This can allow the browser to render pages susceptible to XSS attacks in a non-standards compliant mode.
+# + /robots.txt file found: Disallow: /admin/
+# + /cgi-bin/ доступен: может содержать уязвимые скрипты.
+# + Server leaks inodes via ETags, header found.
+# + ...
+# + 10080 items checked: 0 found 7 vulnerabilities (0.00%) 0 item(s) reported on remote host
+# + End Time:           2024-07-24 12:30:00
+# + 1 host scanned.
+                </code></pre>
+            </div>
+
+            <h3 class="example-title">Сканирование с указанием порта</h3>
+            <p>
+                Этот пример показывает, как указать порт для сканирования.
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Сканирование порта 8080:
+nikto -h http://example.com -p 8080
+
+# Что вы увидите в терминале:
+# Nikto будет сканировать веб-сервер example.com на порту 8080.
+# Если на этом порту работает веб-сервер, Nikto отобразит результаты сканирования.
+                </code></pre>
+            </div>
+
+            <h3 class="example-title">Сохранение результатов в файл</h3>
+            <p>
+                Этот пример демонстрирует, как сохранить результаты сканирования в файл.
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Сохранение результатов в формате HTML:
+nikto -h http://example.com -o report.html
+
+# Что вы увидите:
+# Nikto выполнит сканирование и сохранит отчет в файл "report.html" в текущей директории.
+# Файл будет содержать подробные результаты сканирования в формате HTML.
+                </code></pre>
+            </div>
+
+            <h3 class="example-title">Обход IDS</h3>
+             <p>
+                Этот пример показывает, как использовать опции для обхода систем обнаружения вторжений (IDS).
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Использование случайной задержки и поддельных заголовков для обхода IDS:
+nikto -h http://example.com -T 3 -id myuser -pw mypass -p 80 --randomise
+
+# Что вы увидите в терминале:
+# Nikto будет отправлять запросы с небольшой случайной задержкой между ними.
+# Nikto будет использовать указанные имя пользователя и пароль для аутентификации (если это необходимо).
+# Nikto добавит случайные параметры к каждому запросу, чтобы затруднить обнаружение сканирования.
+                </code></pre>
+            </div>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Важные замечания</h2>
+            <ul class="list-disc list-inside">
+                <li><strong>Используйте Nikto только на тех системах, которые вам разрешено тестировать.</strong> Несанкционированное использование Nikto может привести к юридическим последствиям.</li>
+                <li><strong>Будьте осторожны при сканировании веб-серверов.</strong>  Чрезмерное сканирование может привести к блокировке вашего IP-адреса.</li>
+                <li><strong>Всегда проверяйте результаты сканирования вручную</strong>, чтобы избежать ложных срабатываний.</li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>

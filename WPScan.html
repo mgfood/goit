@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подробное руководство по WPScan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="WPScan.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container">
+        <h1 class="section-title">Подробное руководство по WPScan</h1>
+
+        <section class="section-content">
+            <p>
+                WPScan - это сканер безопасности с открытым исходным кодом, предназначенный для оценки безопасности веб-сайтов WordPress.  Он может обнаруживать различные уязвимости, включая уязвимости основных компонентов WordPress, тем и плагинов.
+            </p>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Что такое WPScan?</h2>
+            <p>
+                WPScan - это инструмент командной строки, который автоматизирует процесс сканирования веб-сайтов WordPress на наличие уязвимостей.  Он использует базу данных известных уязвимостей для выявления потенциальных проблем безопасности.
+            </p>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Как работает WPScan?</h2>
+            <p>
+                WPScan работает, выполняя серию проверок на целевом веб-сайте WordPress, включая:
+            </p>
+            <ul>
+                <li>Обнаружение версии WordPress.</li>
+                <li>Проверку наличия известных уязвимостей в ядре WordPress.</li>
+                <li>Перебор имен пользователей.</li>
+                <li>Обнаружение установленных тем и плагинов.</li>
+                <li>Проверку наличия известных уязвимостей в темах и плагинах.</li>
+                <li>Сканирование на наличие уязвимостей конфигурации.</li>
+            </ul>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Основные возможности WPScan</h2>
+            <p>
+                WPScan обладает множеством полезных функций, включая:
+            </p>
+            <ul>
+                <li>Обширную базу данных уязвимостей: WPScan поддерживает большую базу данных известных уязвимостей WordPress, которая регулярно обновляется.</li>
+                <li>Обнаружение версий: Инструмент может автоматически определять версию WordPress, используемую на целевом веб-сайте.</li>
+                <li>Сканирование тем и плагинов: WPScan может перечислять установленные темы и плагины и проверять их на наличие известных уязвимостей.</li>
+                <li>Перебор паролей: Инструмент может выполнять перебор паролей для учетных записей пользователей WordPress.</li>
+                <li>Поддержку различных форматов вывода: Результаты сканирования можно выводить в различных форматах, таких как текстовый и JSON.</li>
+                <li>Автоматическое обновление: WPScan может автоматически обновлять свою базу данных уязвимостей.</li>
+            </ul>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Примеры использования WPScan</h2>
+
+            <h3 class="example-title">Базовое сканирование</h3>
+            <p>
+                Этот пример демонстрирует, как выполнить базовое сканирование веб-сайта WordPress.
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Выполнение базового сканирования:
+wpscan --url http://example.com
+
+# Что вы увидите в терминале:
+# WPScan начнет сканирование http://example.com и отобразит результаты в режиме реального времени.
+# Пример вывода:
+# ...
+# [+] URL: http://example.com/
+# [+] Started: 2024-07-24 12:00:00
+#
+# [+] интересные файлы
+#  | Found /readme.txt => интересная версия WordPress раскрыта
+#
+# [+] Версия WordPress: 6.2.2
+#  | найдена: /readme.txt
+#  | уверенность: 100%
+#
+# [+] Обнаружены темы
+#  | Название: twentytwentyone
+#  | Заголовок темы: Twenty Twenty-One
+#  | Версия: 1.7
+#  | Путь: /wp-content/themes/twentytwentyone/
+#  | Style URL: /wp-content/themes/twentytwentyone/style.css
+#  | Readme URL: /wp-content/themes/twentytwentyone/README.txt
+#  | [!] версия устарела: 1.7 < 1.9 => уязвимости могут быть
+#  |
+#  | Название: wpscan-theme
+#  | Заголовок темы: WPScan Theme
+#  | Версия: 1.0
+#  | Путь: /wp-content/themes/wpscan-theme/
+#  | Style URL: /wp-content/themes/wpscan-theme/style.css
+#  | Readme URL: /wp-content/themes/wpscan-theme/README.txt
+#
+# [i] 2 уязвимости найдены
+#  |
+#  | * Title: WordPress <= 5.8 - пользовательское восстановление пароля электронной почты
+#  |     Ссылка: https://wpscan.com/vulnerability/xxxx
+#  |     Идентификатор уязвимости: отметка времени
+#  |
+#  | * Title: WordPress 5.0 - 5.2.1 - Авторизованное раскрытие информации через REST API
+#  |     Ссылка: https://wpscan.com/vulnerability/xxxx
+#  |     Идентификатор уязвимости: отметка времени
+# ...
+                </code></pre>
+            </div>
+
+            <h3 class="example-title">Обновление базы данных</h3>
+            <p>
+                Этот пример показывает, как обновить базу данных уязвимостей WPScan.
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Обновление базы данных:
+wpscan --update
+
+# Что вы увидите в терминале:
+# WPScan загрузит последние обновления уязвимостей.
+# Пример вывода:
+# [i] Обновление базы данных уязвимостей ...
+# [i] База данных уязвимостей успешно обновлена до 2024-07-24T12:00:00Z
+                </code></pre>
+            </div>
+
+            <h3 class="example-title">Перебор паролей</h3>
+            <p>
+                Этот пример демонстрирует, как выполнить перебор паролей для учетной записи пользователя WordPress.
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Перебор паролей для пользователя "admin":
+wpscan --url http://example.com --wordlist passwords.txt --username admin
+
+# Что вы увидите в терминале:
+# WPScan попытается перебрать пароли для пользователя "admin", используя слова из списка "passwords.txt".
+# Предупреждение: Перебор паролей может занять много времени и может быть обнаружен системами безопасности.
+# Пример вывода:
+# ...
+# [+] Перебор паролей для пользователя "admin"
+# [i] Попытка входа с использованием 100 паролей из passwords.txt
+# [i] Успешный вход с паролем "password123"
+# ...
+                </code></pre>
+            </div>
+
+            <h3 class="example-title">Вывод в формате JSON</h3>
+            <p>
+                Этот пример показывает, как вывести результаты сканирования в формате JSON.
+            </p>
+            <div class="example-code">
+                <pre><code>
+# Вывод в формате JSON:
+wpscan --url http://example.com --output report.json --format json
+
+# Что вы увидите:
+# WPScan выполнит сканирование и сохранит отчет в формате JSON в файл "report.json".
+# Файл будет содержать подробные результаты сканирования в формате JSON.
+                </code></pre>
+            </div>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">Важные замечания</h2>
+            <ul class="list-disc list-inside">
+                <li><strong>Используйте WPScan только на тех системах, которые вам разрешено тестировать.</strong> Несанкционированное использование WPScan может привести к юридическим последствиям.</li>
+                <li><strong>Будьте осторожны при сканировании веб-серверов.</strong> Чрезмерное сканирование может привести к блокировке вашего IP-адреса или вызвать проблемы с производительностью сервера.</li>
+                <li><strong>Перебор паролей следует проводить с осторожностью и только при наличии разрешения.</strong></li>
+                <li><strong>Всегда анализируйте результаты сканирования вручную</strong>, чтобы избежать ложных срабатываний.</li>
+                <li><strong>Поддерживайте WPScan в актуальном состоянии</strong>, чтобы иметь доступ к последним обновлениям уязвимостей.</li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>

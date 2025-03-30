@@ -1,0 +1,66 @@
+body {
+    font-family: 'Inter', sans-serif; /* Изменен шрифт на Inter для лучшей читаемости */
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.section-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #1e293b;
+    text-align: center;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 2rem;
+}
+.card {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    cursor: pointer; /* Добавлен курсор pointer для интерактивности */
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.13), 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+}
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.75rem;
+}
+.card-description {
+    font-size: 0.9rem;
+    color: #374151; /* Изменен цвет шрифта на более темный для лучшей читаемости */
+    margin-bottom: 1rem;
+    text-align: center; /* Описание центрировано */
+}
+.card-category {
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+    text-align: center; /* Категория центрирована */
+}
+.card-link {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+    margin-top: auto;
+}
+.card-link:hover {
+    color: #2563eb;
+}
